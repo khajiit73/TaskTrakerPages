@@ -1,0 +1,25 @@
+.topbar {
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+  
+    .logo {
+      font-size: 1.5em;
+    }
+  
+    nav a {
+      margin-right: 20px;
+      color: white;
+      text-decoration: none;
+  
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  
+    .profile {
+      font-size: 1.2em;
+    }
+  }
