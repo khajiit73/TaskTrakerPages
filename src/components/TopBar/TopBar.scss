@@ -1,25 +1,40 @@
 .topbar {
-    background-color: black;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-  
-    .logo {
-      font-size: 1.5em;
-    }
-  
-    nav a {
-      margin-right: 20px;
-      color: white;
-      text-decoration: none;
-  
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  
-    .profile {
-      font-size: 1.2em;
+  background-color: #1f1f1f;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+
+  .logo {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #f39c12;
+  }
+
+  nav a {
+    margin-right: 20px;
+    color: #fff;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #f39c12;
+      text-decoration: underline;
     }
   }
+
+  .profile {
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+      color: #f39c12;
+    }
+  }
+}

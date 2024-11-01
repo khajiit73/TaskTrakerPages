@@ -5,8 +5,7 @@ import './AssignedTasks.scss';
 const AssignedTasks: React.FC = () => {
   return (
     <div className="assigned-tasks">
-      <h1>Типа таски, заасайнені до тебе</h1>
-      {/* Додайте логіку для відображення призначених задач */}
+      <h1>In progress...</h1>
     </div>
   );
 };

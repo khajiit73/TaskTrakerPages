@@ -2,15 +2,23 @@ import React from 'react';
 import TaskCard from '../TaskCard/TaskCard';
 import './TaskColumn.scss';
 
-interface TaskColumnProps {
-  title: string;
+interface Task {
+  id: number;
+  name: string;
 }
 
-const TaskColumn: React.FC<TaskColumnProps> = ({ title }) => {
+interface TaskColumnProps {
+  title: string;
+  tasks: Task[]; // Receive tasks as a prop
+}
+
+const TaskColumn: React.FC<TaskColumnProps> = ({ title, tasks }) => {
   return (
     <div className="task-column">
       <h2>{title}</h2>
-      <TaskCard taskName="Тут типа таск" />
+      {tasks.map((task) => (
+        <TaskCard key={task.id} taskName={task.name} />
+      ))}
     </div>
   );
 };
