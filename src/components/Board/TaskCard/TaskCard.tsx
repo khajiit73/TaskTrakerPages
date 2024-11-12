@@ -1,13 +1,34 @@
 import React from 'react';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import './TaskCard.scss';
 
 interface TaskCardProps {
+  taskId: number;
   taskName: string;
 }
 
-const TaskCard: React.FC<TaskCardProps> = ({ taskName }) => {
+const TaskCard: React.FC<TaskCardProps> = ({ taskId, taskName }) => {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+    id: taskId.toString(),
+  });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition: transition || 'transform 0.2s ease',
+    boxShadow: isDragging ? '0px 4px 12px rgba(0, 0, 0, 0.15)' : 'none',
+    opacity: isDragging ? 0.8 : 1,
+    zIndex: isDragging ? 10 : 'auto',
+  };
+
   return (
-    <div className="task-card">
+    <div
+      ref={setNodeRef}
+      style={style}
+      className="task-card"
+      {...listeners}
+      {...attributes}
+    >
       <p>{taskName}</p>
     </div>
   );
