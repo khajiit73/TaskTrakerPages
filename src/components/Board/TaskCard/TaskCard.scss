@@ -6,14 +6,21 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
   cursor: pointer;
-
-  p {
-    color: #333;
-    font-weight: 500;
-  }
+  user-select: none;
+  display: flex;
+  justify-content: space-between;
 
   &:hover {
     transform: scale(1.02);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  .drag-handle {
+    font-size: 1rem;
+    cursor: grab;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
   }
 }

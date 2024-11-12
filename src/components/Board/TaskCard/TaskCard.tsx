@@ -6,9 +6,10 @@ import './TaskCard.scss';
 interface TaskCardProps {
   taskId: number;
   taskName: string;
+  onClick: () => void;
 }
 
-const TaskCard: React.FC<TaskCardProps> = ({ taskId, taskName }) => {
+const TaskCard: React.FC<TaskCardProps> = ({ taskId, taskName, onClick }) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: taskId.toString(),
   });
@@ -26,10 +27,19 @@ const TaskCard: React.FC<TaskCardProps> = ({ taskId, taskName }) => {
       ref={setNodeRef}
       style={style}
       className="task-card"
-      {...listeners}
-      {...attributes}
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick();
+      }}
     >
-      <p>{taskName}</p>
+      {taskName}
+      <div
+        className="drag-handle"
+        {...listeners}
+        {...attributes}
+      >
+        |||
+      </div>
     </div>
   );
 };

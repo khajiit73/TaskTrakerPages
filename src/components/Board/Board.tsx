@@ -1,62 +1,35 @@
 import React, { useState } from 'react';
 import TaskColumn from './TaskColumn/TaskColumn';
-import { DndContext, DragEndEvent, DragOverEvent, DragStartEvent, DragOverlay } from '@dnd-kit/core';
+import { DndContext, DragEndEvent, DragStartEvent, DragOverlay } from '@dnd-kit/core';
 import { arrayMove, SortableContext } from '@dnd-kit/sortable';
-import TaskCard from './TaskCard/TaskCard'; // Import TaskCard for DragOverlay
+import TaskCard from './TaskCard/TaskCard';
+import TaskDetailsModal from './TaskDetailsModal/TaskDetailsModal';
+import { tasksData, TaskItem } from '../../helpers/taskData';
 import './Board.scss';
-
-interface Task {
-  id: number;
-  name: string;
-}
 
 interface Column {
   id: string;
   title: string;
-  tasks: Task[];
+  tasks: TaskItem[];
 }
 
 const Board: React.FC = () => {
   const [columns, setColumns] = useState<Column[]>([
-    { id: 'todo', title: 'To do', tasks: [{ id: 1, name: 'Task 1' }, { id: 2, name: 'Task 2' }] },
-    { id: 'inProgress', title: 'In progress', tasks: [{ id: 3, name: 'Task 3' }, { id: 4, name: 'Task 4' }] },
-    { id: 'done', title: 'Done', tasks: [{ id: 5, name: 'Task 5' }, { id: 6, name: 'Task 6' }] },
+    { id: 'todo', title: 'To do', tasks: tasksData.filter(task => task.statusId === 1) },
+    { id: 'inProgress', title: 'In progress', tasks: tasksData.filter(task => task.statusId === 2) },
+    { id: 'done', title: 'Done', tasks: tasksData.filter(task => task.statusId === 3) },
   ]);
+
   const [activeId, setActiveId] = useState<number | null>(null);
+  const [selectedTask, setSelectedTask] = useState<TaskItem | null>(null);
 
   const handleDragStart = (event: DragStartEvent) => {
     setActiveId(Number(event.active.id));
   };
 
-  const handleDragOver = (event: DragOverEvent) => {
-    const { active, over } = event;
-    if (!over || active.id === over.id) return;
-
-    setColumns((prevColumns) => {
-      const sourceColumn = prevColumns.find((column) =>
-        column.tasks.some((task) => task.id === Number(active.id))
-      );
-      const destinationColumn = prevColumns.find((column) => column.id === over.id || column.tasks.some((task) => task.id === Number(over.id)));
-
-      if (!sourceColumn || !destinationColumn) return prevColumns;
-
-      const oldIndex = sourceColumn.tasks.findIndex((task) => task.id === Number(active.id));
-      const newIndex = destinationColumn.tasks.findIndex((task) => task.id === Number(over.id));
-
-      // Moving within the same column
-      if (sourceColumn === destinationColumn && oldIndex !== newIndex) {
-        const updatedTasks = arrayMove(sourceColumn.tasks, oldIndex, newIndex);
-        return prevColumns.map((column) =>
-          column.id === sourceColumn.id ? { ...column, tasks: updatedTasks } : column
-        );
-      }
-      return prevColumns;
-    });
-  };
-
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
-    setActiveId(null); // Reset the activeId when drag ends
+    setActiveId(null);
 
     if (!over) return;
 
@@ -68,7 +41,6 @@ const Board: React.FC = () => {
 
       if (!sourceColumn || !destinationColumn) return prevColumns;
 
-      // Moving within the same column
       if (sourceColumn === destinationColumn) {
         const oldIndex = sourceColumn.tasks.findIndex((task) => task.id === Number(active.id));
         const newIndex = sourceColumn.tasks.findIndex((task) => task.id === Number(over.id));
@@ -80,7 +52,6 @@ const Board: React.FC = () => {
           );
         }
       } else {
-        // Moving between columns
         const task = sourceColumn.tasks.find((task) => task.id === Number(active.id));
         if (task) {
           return prevColumns.map((column) => {
@@ -98,12 +69,18 @@ const Board: React.FC = () => {
     });
   };
 
+  const handleCardClick = (task: TaskItem) => {
+    setSelectedTask(task);
+  };
+
+  const closeModal = () => setSelectedTask(null);
+
   return (
-    <DndContext onDragStart={handleDragStart} onDragOver={handleDragOver} onDragEnd={handleDragEnd}>
-      <div className="board">
+    <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+      <div className={`board ${selectedTask ? 'modal-open' : ''}`}>
         {columns.map((column) => (
           <SortableContext key={column.id} items={column.tasks.map((task) => task.id.toString())}>
-            <TaskColumn columnId={column.id} title={column.title} tasks={column.tasks} />
+            <TaskColumn columnId={column.id} title={column.title} tasks={column.tasks} onCardClick={handleCardClick} />
           </SortableContext>
         ))}
       </div>
@@ -112,10 +89,13 @@ const Board: React.FC = () => {
         {activeId ? (
           <TaskCard
             taskId={activeId}
-            taskName={columns.flatMap((column) => column.tasks).find((task) => task.id === activeId)?.name || ''}
+            taskName={columns.flatMap((column) => column.tasks).find((task) => task.id === activeId)?.title || ''}
+            onClick={() => {}}
           />
         ) : null}
       </DragOverlay>
+
+      {selectedTask && <TaskDetailsModal task={selectedTask} onClose={closeModal} />}
     </DndContext>
   );
 };
