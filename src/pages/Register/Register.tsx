@@ -11,7 +11,7 @@ const Register: React.FC = () => {
     e.preventDefault();
     if (email && password) {
       try {
-        const response = await fetch('/register', {
+        const response = await fetch('http://18.188.183.157:5000/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

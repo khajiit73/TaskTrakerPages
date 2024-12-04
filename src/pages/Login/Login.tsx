@@ -14,7 +14,7 @@ const Login: React.FC = () => {
     e.preventDefault();
     if (email && password) {
       try {
-        const response = await fetch('/login', {
+        const response = await fetch('http://18.188.183.157:5000/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
