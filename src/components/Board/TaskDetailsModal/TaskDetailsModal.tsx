@@ -1,9 +1,9 @@
 import React from 'react';
 import './TaskDetailsModal.scss';
-import { TaskItem } from '../../../helpers/taskData';
+import { Task } from '../../../store/slices/boardSlice';
 
 interface TaskDetailsModalProps {
-  task: TaskItem;
+  task: Task;
   onClose: () => void;
 }
 

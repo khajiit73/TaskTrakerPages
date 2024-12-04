@@ -1,14 +1,14 @@
 import React from "react";
 import TaskCard from "../TaskCard/TaskCard";
 import { useDroppable } from "@dnd-kit/core";
-import { TaskItem } from "../../../helpers/taskData";
+import { Task } from "../../../store/slices/boardSlice";
 import "./TaskColumn.scss";
 
 interface TaskColumnProps {
   columnId: string;
   title: string;
-  tasks: TaskItem[];
-  onCardClick: (task: TaskItem) => void; 
+  tasks: Task[];
+  onCardClick: (task: Task) => void; 
 }
 
 const TaskColumn: React.FC<TaskColumnProps> = ({

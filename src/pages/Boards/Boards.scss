@@ -1,0 +1,104 @@
+.boards-page {
+    padding: 2rem;
+  
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+      color: #333;
+    }
+  
+    .boards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1.5rem;
+      padding: 1rem;
+    }
+  
+    .board-card {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f9fafb;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #333;
+      cursor: pointer;
+      transition: all 0.3s ease;
+  
+      &:hover {
+        background: #f39c12;
+        color: white;
+      }
+  
+      &.create-board {
+        background: #1f1f1f;
+        color: #f39c12;
+        border: 2px dashed #f39c12;
+      }
+    }
+  
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  
+      .modal-content {
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  
+        h2 {
+          margin-bottom: 1rem;
+        }
+  
+        input {
+          width: 100%;
+          padding: 0.5rem;
+          margin-bottom: 1rem;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+        }
+  
+        .modal-actions {
+          display: flex;
+          justify-content: space-between;
+  
+          button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+  
+            &:first-child {
+              background: #f39c12;
+              color: white;
+            }
+  
+            &:last-child {
+              background: #ddd;
+              color: #333;
+            }
+  
+            &:hover {
+              opacity: 0.9;
+            }
+          }
+        }
+      }
+    }
+  }
+  

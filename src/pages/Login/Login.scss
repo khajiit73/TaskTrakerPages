@@ -1,0 +1,84 @@
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #f0f2f5; // Matches the main app background color
+  }
+  
+  .login-form {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  
+    h1 {
+      margin-bottom: 1.5rem;
+      color: #1f1f1f; // Matches the site's top bar text color
+      font-weight: bold;
+    }
+  
+    .form-group {
+      margin-bottom: 1rem;
+      text-align: left;
+  
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: #333; // Neutral color for labels
+      }
+  
+      input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 1rem;
+        color: #1f1f1f; // Input text color
+        background-color: #f9fafb; // Matches the TaskColumn background
+      }
+  
+      input:focus {
+        border-color: #f39c12; // Highlighted focus color
+        outline: none;
+      }
+    }
+  
+    .login-button {
+      width: 100%;
+      padding: 0.75rem;
+      background: #f39c12; // Matches the highlight color
+      border: none;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+  
+      &:hover {
+        background: #d97b0d; // Slightly darker for hover effect
+      }
+    }
+  
+    // Add a subtle shadow effect for the form container
+    .login-form {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
