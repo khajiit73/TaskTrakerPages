@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-// import './Register.scss';
+import { Link, useNavigate } from 'react-router-dom';
+import './Register.scss';
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -61,6 +61,9 @@ const Register: React.FC = () => {
           />
         </div>
         <button type="submit" className="register-button">Register</button>
+        <p className="login-link">
+          Already have an account? <Link to="/login">Login here</Link>
+        </p>
       </form>
     </div>
   );

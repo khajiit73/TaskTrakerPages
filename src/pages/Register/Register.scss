@@ -1,4 +1,6 @@
-.login-page {
+import 
+
+.register-page {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -6,7 +8,7 @@
     background: #f0f2f5; // Matches the main app background color
   }
   
-  .login-form {
+  .register-form {
     background: #fff;
     padding: 2rem;
     border-radius: 8px;
@@ -48,53 +50,37 @@
       }
     }
   
-    .login-button {
-      width: 100%;
-      padding: 0.75rem;
-      background: #f39c12; // Matches the highlight color
-      border: none;
-      color: #fff;
-      font-size: 1rem;
-      font-weight: bold;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-  
-      &:hover {
-        background: #d97b0d; // Slightly darker for hover effect
-      }
+    .register-button {
+        width: 100%;
+        padding: 0.75rem;
+        background: #f39c12; // Matches the highlight color
+        border: none;
+        color: #fff;
+        font-size: 1rem;
+        font-weight: bold;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    
+        &:hover {
+          background: #d97b0d; // Slightly darker for hover effect
+        }
     }
   
-    // Add a subtle shadow effect for the form container
-    .login-form {
-      animation: fadeIn 0.5s ease-in-out;
-    }
-  }
+    .login-link {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: #333;
   
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+      a {
+        color: #f39c12;
+        text-decoration: none;
+        font-weight: bold;
   
-
-  .register-link {
-    margin-top: 1rem;
-    font-size: 0.9rem;
-    color: #333;
-  
-    a {
-      color: #f39c12;
-      text-decoration: none;
-      font-weight: bold;
-  
-      &:hover {
-        text-decoration: underline;
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
   }
+  

@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { RootState, AppDispatch } from '../../store';
-import { fetchBoards, createBoard } from '../../store/slices/boardSlice';
-import './Boards.scss';
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { RootState, AppDispatch } from "../../store";
+import { fetchBoards, createBoard } from "../../store/slices/boardSlice";
+import "./Boards.scss";
 
 const Boards: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const { boards, loading, error } = useSelector((state: RootState) => state.board);
+  const { boards, loading, error } = useSelector(
+    (state: RootState) => state.board
+  );
 
   const [isModalOpen, setModalOpen] = useState(false);
-  const [newBoardName, setNewBoardName] = useState('');
+  const [newBoardName, setNewBoardName] = useState("");
 
   useEffect(() => {
     dispatch(fetchBoards());
@@ -20,7 +22,7 @@ const Boards: React.FC = () => {
   const handleCreateBoard = () => {
     if (newBoardName.trim()) {
       dispatch(createBoard(newBoardName)).then(() => {
-        setNewBoardName('');
+        setNewBoardName("");
         setModalOpen(false);
       });
     }
@@ -29,25 +31,36 @@ const Boards: React.FC = () => {
   const handleBoardClick = (id: number) => {
     navigate(`/board/${id}`);
   };
-
+  if (loading) {
+    return(
+      <p>Loading...</p>
+    )
+  }
+  // if (error) {
+  //   return(
+  //     <p style={{ color: "red" }}>
+  //     {typeof error === "string"
+  //       ? error
+  //       : error.message || "An unknown error occurred"}
+  //   </p>
+  //   )
+  // }
   return (
     <div className="boards-page">
-      <h1>Boards</h1>
-      {loading && <p>Loading...</p>}
-      {/* Render error message if error exists */}
-      {error && (
-        <p style={{ color: 'red' }}>
-          {typeof error === 'string' ? error : error.message || 'An unknown error occurred'}
-        </p>
-      )}
-
       <div className="boards-grid">
         {boards.map((board) => (
-          <div key={board.id} className="board-card" onClick={() => handleBoardClick(board.id)}>
+          <div
+            key={board.id}
+            className="board-card"
+            onClick={() => handleBoardClick(board.id)}
+          >
             <h3>{board.name}</h3>
           </div>
         ))}
-        <div className="board-card create-board" onClick={() => setModalOpen(true)}>
+        <div
+          className="board-card create-board"
+          onClick={() => setModalOpen(true)}
+        >
           <h3>+ Create New Board</h3>
         </div>
       </div>

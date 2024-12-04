@@ -41,9 +41,11 @@ const initialState: BoardState = {
 // Helper to get Authorization headers from Redux state
 const getAuthHeaders = (state: RootState) => {
   const token = state.auth.token;
-  return { Authorization: `Bearer ${token}` };
+  return {
+    Authorization: `Bearer ${token}`,
+    "Content-Type": "application/json",
+  };
 };
-
 // Thunk to fetch user's boards using the /api/task-items/user endpoint
 export const fetchBoards = createAsyncThunk('board/fetchBoards', async (_, { getState, rejectWithValue }) => {
   try {
@@ -79,7 +81,7 @@ export const createBoard = createAsyncThunk('board/createBoard', async (name: st
     const state = getState() as RootState;
     const headers = getAuthHeaders(state);
     const response = await axios.post(`${API_BASE_URL}/board`, { name }, { headers });
-    return response.data; // Assuming this returns the created board
+    return response.data; 
   } catch (error: any) {
     return rejectWithValue(error.response?.data || error.message);
   }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../../store/slices/authSlice';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; // Import Link
 import './Login.scss';
 
 const Login: React.FC = () => {
@@ -17,16 +17,18 @@ const Login: React.FC = () => {
         const response = await fetch('/login', {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ email, password })
+          body: JSON.stringify({ email, password }),
         });
         if (response.ok) {
           const data = await response.json();
-          dispatch(login({
-            email,
-            token: data.accessToken
-          }));
+          dispatch(
+            login({
+              email,
+              token: data.accessToken,
+            })
+          );
           navigate('/boards');
         } else {
           const errorData = await response.json();
@@ -40,7 +42,6 @@ const Login: React.FC = () => {
       alert('Please fill in all fields');
     }
   };
-  
 
   return (
     <div className="login-page">
@@ -68,7 +69,13 @@ const Login: React.FC = () => {
             required
           />
         </div>
-        <button type="submit" className="login-button">Login</button>
+        <button type="submit" className="login-button">
+          Login
+        </button>
+        {/* Add Register Link */}
+        <p className="register-link">
+          Don't have an account? <Link to="/register">Register here</Link>
+        </p>
       </form>
     </div>
   );
